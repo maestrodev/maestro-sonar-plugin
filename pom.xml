@@ -9,7 +9,7 @@
   <artifactId>maestro-sonar-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>maestro-sonar-plugin</name>
-  <description>Sonar Maestro plugin.</description>
+  <description>Sonar Maestro Plugin</description>
 
   <build>
     <plugins>
