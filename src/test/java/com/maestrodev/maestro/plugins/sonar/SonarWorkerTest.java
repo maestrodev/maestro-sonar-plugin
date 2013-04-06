@@ -60,7 +60,7 @@ public class SonarWorkerTest {
         worker.setWorkitem(workitem);
     }
 
-    /** Integration test that requires a sonar server.  Useful during testing, but not unless you have a Sonar server.**/
+    /** Integration test that requires a sonar server.  Useful during testing, but not unless you have a Sonar server.
     @SuppressWarnings("unchecked")
     @Test
     public void shouldGetMetrics() throws IOException {
@@ -108,6 +108,6 @@ public class SonarWorkerTest {
             logger.log(Level.FINE, "context: "+context);
         }
     }
-    /***/
+    **/
 
 }
