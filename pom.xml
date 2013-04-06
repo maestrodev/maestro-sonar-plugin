@@ -11,6 +11,12 @@
   <name>maestro-sonar-plugin</name>
   <description>Sonar Maestro Plugin</description>
 
+  <scm>
+    <connection>scm:git:git@github.com:maestrodev/maestro-sonar-plugin.git</connection>
+    <url>scm:git:git@github.com:maestrodev/maestro-sonar-plugin.git</url>
+    <developerConnection>scm:git:git@github.com:maestrodev/maestro-sonar-plugin.git</developerConnection>
+  </scm>
+
   <build>
     <plugins>
         <plugin>
