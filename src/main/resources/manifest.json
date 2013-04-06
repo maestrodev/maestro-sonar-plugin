@@ -1,0 +1,61 @@
+[
+  {
+    "name": "Sonar Plugin",
+    "description": "Fetch metrics for a Sonar project",
+    "license": "Apache 2.0",
+    "author": "David Castro",
+    "version": "${project.version}-${buildNumber}",
+    "class": "com.maestrodev.maestro.plugins.sonar.SonarWorker",
+    "type": "java",
+    "dependencies": [
+      {
+        "name": "${project.artifactId}-${project.version}.jar"
+      },
+      {
+        "name": "pom.xml"
+      }
+    ],
+    "task": {
+      "command": "/sonar/fetchMetricsForProject",
+      "inputs": {
+        "url": {
+          "required": true,
+          "type": "Url",
+          "value": "http://localhost:9000",
+          "description": "The Sonar server URL"
+        },
+        "username": {
+          "required": false,
+          "type": "String",
+          "value": null,
+          "description": "The Sonar username"
+        },
+        "password": {
+          "required": false,
+          "type": "Password",
+          "value": null,
+          "description": "The Sonar password"
+        },
+        "projectKey": {
+          "required": true,
+          "type": "String",
+          "value": null,
+          "description": "The Sonar project key or id"
+        }
+      },
+      "outputs": {},
+      "tool_name": "Test",
+      "icon": "sonar.png"
+    },
+    "source_types": [
+      {
+        "name": "Sonar",
+        "options": {
+          "url": "String",
+          "username": "String",
+          "password": "Password"
+        }
+      }
+    ]
+  }
+]
