@@ -4,6 +4,7 @@
 package com.maestrodev.maestro.plugins.sonar;
 
 import com.maestrodev.maestro.plugins.MaestroWorker;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -65,9 +66,10 @@ public class SonarWorker extends MaestroWorker {
      */
     public void fetchMetricsForProject() {
         String projectKey = getField("projectKey");
-        String url = getField("url");
+        String url = validateUrl(getField("url"));
         String username = getField("username");
         String messageSuffix = String.format(" for sonar project '%s' with username '%s' on server '%s'", projectKey, username, url);
+
         try {
             JSONObject context = getContext();
 
@@ -135,9 +137,10 @@ public class SonarWorker extends MaestroWorker {
             }
 
             setField(CONTEXT_OUTPUTS, context);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.log(Level.WARNING, "Error retrieving metrics" + messageSuffix, e);
-            setError("Error retrieving metrics" + messageSuffix + ": " + e.getMessage());
+            String err = e.getMessage() + "\n" + ExceptionUtils.getStackTrace(e);
+            setError("Error retrieving metrics" + messageSuffix + ":\n" + err);
         }
     }
 
@@ -176,5 +179,25 @@ public class SonarWorker extends MaestroWorker {
             outputData = new JSONObject();
         }
         return outputData;
+    }
+
+    /**
+     * Process URL for correct form and fix some common issues for convenience to the end user
+     *
+     * @param url The URL to process
+     * @return The sanitized URL
+     */
+    private String validateUrl(String url) throws RuntimeException {
+        if (url == null) {
+            setError("The Sonar URL must not be empty");
+            throw new RuntimeException("The Sonar URL must not be empty");
+        }
+
+        // let's first strip off any trailing slash on the URL
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length()-1);
+        }
+
+        return url;
     }
 }
