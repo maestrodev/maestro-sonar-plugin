@@ -59,7 +59,7 @@ public class SonarClient {
         resty = new Resty();
 
         try {
-            String encodedString = Base64.encodeBase64((username + ":" + password).getBytes("UTF-8")).toString();
+            String encodedString = new String(Base64.encodeBase64((username + ":" + password).getBytes("UTF-8"), false), "UTF-8");
             resty.withHeader("Authorization", "Basic " + encodedString);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Problem setting the authorization header for the Sonar client");
