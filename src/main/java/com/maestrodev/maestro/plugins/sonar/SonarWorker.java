@@ -52,11 +52,8 @@ public class SonarWorker extends MaestroWorker {
         String username = getField("username");
         String password = getField("password");
 
-        if (username != null && !username.equals("") && password != null && !password.equals("")) {
-            client = new SonarClient(url, username, password);
-        } else {
-            client = new SonarClient(url);
-        }
+        client = new SonarClient(url, username, password);
+
         return client;
     }
 

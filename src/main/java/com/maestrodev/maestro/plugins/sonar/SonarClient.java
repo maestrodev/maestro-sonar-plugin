@@ -4,6 +4,7 @@
 package com.maestrodev.maestro.plugins.sonar;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import us.monoid.json.JSONArray;
 import us.monoid.json.JSONObject;
 import us.monoid.web.JSONResource;
@@ -40,8 +41,7 @@ public class SonarClient {
      * @param baseUrl The base URL for the target Sonar server (e.g. http://localhost:9000)
      */
     public SonarClient(String baseUrl) {
-        this.baseUrl = baseUrl;
-        resty = new Resty();
+        this(baseUrl, null, null);
     }
 
     /**
@@ -63,11 +63,13 @@ public class SonarClient {
             resty.setProxy(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty("http.proxyPort")));
         }
 
-        try {
-            String encodedString = new String(Base64.encodeBase64((username + ":" + password).getBytes("UTF-8"), false), "UTF-8");
-            resty.withHeader("Authorization", "Basic " + encodedString);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Problem setting the authorization header for the Sonar client");
+        if (StringUtils.isNotEmpty(username)) {
+            try {
+                String encodedString = new String(Base64.encodeBase64((username + ":" + password).getBytes("UTF-8"), false), "UTF-8");
+                resty.withHeader("Authorization", "Basic " + encodedString);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException("Problem setting the authorization header for the Sonar client");
+            }
         }
     }
 
