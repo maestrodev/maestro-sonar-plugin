@@ -58,6 +58,11 @@ public class SonarClient {
         this.password = password;
         resty = new Resty();
 
+        if (System.getProperty("http.proxyHost") != null && System.getProperty("http.proxyPort") != null) {
+            logger.info("Using proxy: " + System.getProperty("http.proxyHost") + ":" + System.getProperty("http.proxyPort"));
+            resty.setProxy(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty("http.proxyPort")));
+        }
+
         try {
             String encodedString = new String(Base64.encodeBase64((username + ":" + password).getBytes("UTF-8"), false), "UTF-8");
             resty.withHeader("Authorization", "Basic " + encodedString);
