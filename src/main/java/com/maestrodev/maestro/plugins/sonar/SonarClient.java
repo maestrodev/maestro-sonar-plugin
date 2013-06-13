@@ -58,9 +58,11 @@ public class SonarClient {
         this.password = password;
         resty = new Resty();
 
-        if (System.getProperty("http.proxyHost") != null && System.getProperty("http.proxyPort") != null) {
-            logger.info("Using proxy: " + System.getProperty("http.proxyHost") + ":" + System.getProperty("http.proxyPort"));
-            resty.setProxy(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty("http.proxyPort")));
+        String proxyHost = System.getProperty("http.proxyHost");
+        String proxyPort = System.getProperty("http.proxyPort");
+        if (proxyHost != null && proxyPort != null) {
+            logger.info("Using proxy: " + proxyHost + ":" + proxyPort);
+            resty.setProxy(proxyHost, Integer.parseInt(proxyPort));
         }
 
         if (StringUtils.isNotEmpty(username)) {
