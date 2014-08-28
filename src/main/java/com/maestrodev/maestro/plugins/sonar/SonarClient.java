@@ -5,6 +5,7 @@ package com.maestrodev.maestro.plugins.sonar;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+
 import us.monoid.json.JSONArray;
 import us.monoid.json.JSONObject;
 import us.monoid.web.JSONResource;
@@ -32,8 +33,7 @@ public class SonarClient {
 
     private String baseUrl;
     private String username;
-    private String password;
-    private Resty resty;
+    Resty resty;
 
     /**
      * Create a new SonarClient to use for connecting to Sonar
@@ -55,7 +55,6 @@ public class SonarClient {
     public SonarClient(String baseUrl, String username, String password) {
         this.baseUrl = baseUrl;
         this.username = username;
-        this.password = password;
         resty = new Resty();
 
         String proxyHost = System.getProperty("http.proxyHost");
@@ -148,7 +147,7 @@ public class SonarClient {
             JSONArray msr = o.getJSONArray(JSON_MEASUREMENTS);
 
             // create measure objects for all the returned json data
-            ArrayList<SonarMeasure> measures = new ArrayList();
+            ArrayList<SonarMeasure> measures = new ArrayList<SonarMeasure>();
             for (int i = 0; i < msr.length(); i++) {
                 JSONObject tmp = msr.getJSONObject(i);
                 SonarMeasure measure = new SonarMeasure(tmp.getString(JSON_MEASUREMENT_KEY), tmp.get(JSON_MEASUREMENT_VALUE), tmp.getString(JSON_MEASUREMENT_FORMAT_VALUE));

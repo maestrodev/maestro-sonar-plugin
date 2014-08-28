@@ -1,0 +1,56 @@
+[
+  {
+    "id": 269309,
+    "key": "org.apache.commons:commons-lang3",
+    "name": "Apache Commons Lang",
+    "scope": "PRJ",
+    "qualifier": "TRK",
+    "date": "2014-08-24T19:05:49+0200",
+    "creationDate": null,
+    "lname": "Apache Commons Lang",
+    "version": "3.4-SNAPSHOT",
+    "description": "Apache Commons Lang, a package of Java utility classes for the\n  classes that are in java.lang's hierarchy, or are considered to be so\n  standard as to justify existence in java.lang.",
+    "msr": [
+      {
+        "key": "test_errors",
+        "val": 0.0,
+        "frmt_val": "0"
+      },
+      {
+        "key": "test_failures",
+        "val": 2.0,
+        "frmt_val": "2"
+      },
+      {
+        "key": "tests",
+        "val": 2556.0,
+        "frmt_val": "2,556"
+      },
+      {
+        "key": "test_execution_time",
+        "val": 45569.0,
+        "frmt_val": "45.5 sec"
+      },
+      {
+        "key": "test_success_density",
+        "val": 99.9,
+        "frmt_val": "99.9%"
+      },
+      {
+        "key": "coverage",
+        "val": 92.7,
+        "frmt_val": "92.7%"
+      },
+      {
+        "key": "line_coverage",
+        "val": 94.2,
+        "frmt_val": "94.2%"
+      },
+      {
+        "key": "branch_coverage",
+        "val": 90.6,
+        "frmt_val": "90.6%"
+      }
+    ]
+  }
+]

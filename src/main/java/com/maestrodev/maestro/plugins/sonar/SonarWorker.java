@@ -48,12 +48,13 @@ public class SonarWorker extends MaestroWorker {
      * @return a Sonar instance.
      */
     protected SonarClient getSonarClient() {
-        String url = getField("url");
-        String username = getField("username");
-        String password = getField("password");
-
-        client = new SonarClient(url, username, password);
-
+        if (client == null) {
+            String url = getField("url");
+            String username = getField("username");
+            String password = getField("password");
+    
+            client = new SonarClient(url, username, password);
+        }
         return client;
     }
 

@@ -1,0 +1,51 @@
+[
+  {
+    "id": 269309,
+    "key": "org.apache.commons:commons-lang3",
+    "name": "Apache Commons Lang",
+    "scope": "PRJ",
+    "qualifier": "TRK",
+    "date": "2014-08-24T19:05:49+0200",
+    "creationDate": null,
+    "lname": "Apache Commons Lang",
+    "version": "3.4-SNAPSHOT",
+    "description": "Apache Commons Lang, a package of Java utility classes for the\n  classes that are in java.lang's hierarchy, or are considered to be so\n  standard as to justify existence in java.lang.",
+    "msr": [
+      {
+        "key": "violations_density",
+        "val": 81.9,
+        "frmt_val": "81.9%"
+      },
+      {
+        "key": "violations",
+        "val": 2276.0,
+        "frmt_val": "2,276"
+      },
+      {
+        "key": "blocker_violations",
+        "val": 1.0,
+        "frmt_val": "1"
+      },
+      {
+        "key": "critical_violations",
+        "val": 14.0,
+        "frmt_val": "14"
+      },
+      {
+        "key": "major_violations",
+        "val": 978.0,
+        "frmt_val": "978"
+      },
+      {
+        "key": "minor_violations",
+        "val": 1232.0,
+        "frmt_val": "1,232"
+      },
+      {
+        "key": "info_violations",
+        "val": 51.0,
+        "frmt_val": "51"
+      }
+    ]
+  }
+]
