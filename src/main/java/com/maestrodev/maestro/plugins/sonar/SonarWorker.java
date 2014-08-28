@@ -4,10 +4,11 @@
 package com.maestrodev.maestro.plugins.sonar;
 
 import com.maestrodev.maestro.plugins.MaestroWorker;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -69,7 +70,7 @@ public class SonarWorker extends MaestroWorker {
         String messageSuffix = String.format(" for sonar project '%s' with username '%s' on server '%s'", projectKey, username, url);
 
         try {
-            JSONObject context = getContext();
+            Map<String, Object> context = getContext();
 
             logger.log(Level.INFO, "getting sonar client" + messageSuffix);
             SonarClient client = getSonarClient();
@@ -108,8 +109,8 @@ public class SonarWorker extends MaestroWorker {
              *   }
              * }
              */
-            JSONObject tests = processMeasures(metas, testsMeasures);
-            JSONObject rules = processMeasures(metas, rulesMeasures);
+            Map<String, Object> tests = processMeasures(metas, testsMeasures);
+            Map<String, Object> rules = processMeasures(metas, rulesMeasures);
 
             context.put("projectKey", projectKey);
             context.put("projectLink", url + "/dashboard/index/" + projectKey);
@@ -117,14 +118,14 @@ public class SonarWorker extends MaestroWorker {
             context.put("rules", rules);
 
             // add the list of tests for ordering
-            JSONArray testsList = new JSONArray();
+            List<String> testsList = new ArrayList<String>();
             for (String test : SonarWorker.TESTS_METRIC_NAMES) {
                 testsList.add(test);
             }
             context.put("testsList", testsList);
 
             // add the list of rules for ordering
-            JSONArray rulesList = new JSONArray();
+            List<String> rulesList = new ArrayList<String>();
             for (String rule : SonarWorker.RULES_METRIC_NAMES) {
                 rulesList.add(rule);
             }
@@ -150,12 +151,12 @@ public class SonarWorker extends MaestroWorker {
      * @param measures The measurements for a Sonar domain we want to process into the context
      * @return An object that represents all metrics for a Sonar domain we want to send back
      */
-    private JSONObject processMeasures(Map<String, SonarMeasureMeta> metas, List<SonarMeasure> measures) {
-        JSONObject domainObject = new JSONObject();
+    private Map<String, Object> processMeasures(Map<String, SonarMeasureMeta> metas, List<SonarMeasure> measures) {
+        Map<String, Object> domainObject = new HashMap<String, Object>();
         for (SonarMeasure m : measures) {
             // the meta data for sonar metrics
             SonarMeasureMeta meta = metas.get(m.getKey());
-            JSONObject o = new JSONObject();
+            Map<String, Object> o = new HashMap<String, Object>();
             o.put(SonarMeasureMeta.MEASURE_NAME_KEY, meta.get(SonarMeasureMeta.MEASURE_NAME_KEY));
             o.put(SonarMeasureMeta.MEASURE_VALUE_TYPE_KEY, meta.get(SonarMeasureMeta.MEASURE_VALUE_TYPE_KEY));
             o.put("value", m.getValue());
@@ -171,10 +172,11 @@ public class SonarWorker extends MaestroWorker {
      *
      * @return The context object
      */
-    private JSONObject getContext() {
-        JSONObject outputData = (JSONObject) getFields().get(CONTEXT_OUTPUTS);
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> getContext() {
+        Map<String, Object> outputData = (Map<String, Object>) getFields().get(CONTEXT_OUTPUTS);
         if (outputData == null) {
-            outputData = new JSONObject();
+            outputData = new HashMap<String, Object>();
         }
         return outputData;
     }

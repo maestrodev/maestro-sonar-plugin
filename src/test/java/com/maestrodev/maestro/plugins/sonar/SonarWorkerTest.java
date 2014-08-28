@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.fusesource.stomp.client.BlockingConnection;
-import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -51,13 +50,13 @@ public class SonarWorkerTest {
         blockingConnection = mock(BlockingConnection.class);
         when(stompConnectionFactory.getConnection(Matchers.anyString(), Matchers.anyInt())).thenReturn(blockingConnection);
 
-        JSONObject fields = new JSONObject();
+        Map<String, Object> fields = new HashMap<String, Object>();
         fields.put("url", url);
         fields.put("username", null);
         fields.put("password", null);
         fields.put("projectKey", "org.apache.commons:commons-lang3");
 
-        JSONObject workitem = new JSONObject();
+        Map<String, Object> workitem = new HashMap<String, Object>();
         workitem.put("fields", fields);
 
         worker = new SonarWorker();
