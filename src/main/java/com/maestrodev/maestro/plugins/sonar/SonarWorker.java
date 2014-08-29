@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class SonarWorker extends MaestroWorker {
 
     private static final Logger logger = Logger.getLogger(SonarWorker.class.getName());
-    static final String CONTEXT_OUTPUTS = "__context_outputs__";
     private SonarClient client;
 
     public static String[] TESTS_METRIC_NAMES = new String[]{
@@ -135,7 +134,7 @@ public class SonarWorker extends MaestroWorker {
                 logger.log(Level.INFO, "putting metrics into context_outputs for maestro to pick up " + context + messageSuffix);
             }
 
-            setField(CONTEXT_OUTPUTS, context);
+            setContextOutputs(context);
         } catch (Throwable e) {
             logger.log(Level.WARNING, "Error retrieving metrics" + messageSuffix, e);
             String err = e.getMessage() + "\n" + ExceptionUtils.getStackTrace(e);
@@ -172,9 +171,8 @@ public class SonarWorker extends MaestroWorker {
      *
      * @return The context object
      */
-    @SuppressWarnings("unchecked")
     private Map<String, Object> getContext() {
-        Map<String, Object> outputData = (Map<String, Object>) getFields().get(CONTEXT_OUTPUTS);
+        Map<String, Object> outputData = getContextOutputs();
         if (outputData == null) {
             outputData = new HashMap<String, Object>();
         }

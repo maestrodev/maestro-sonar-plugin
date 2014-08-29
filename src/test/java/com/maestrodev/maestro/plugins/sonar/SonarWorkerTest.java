@@ -91,7 +91,7 @@ public class SonarWorkerTest {
 
         // ensure the right data got populated into the __context_outputs__
         Map<String, Object> fields = worker.getFields();
-        Map<String, Object> context = (Map<String, Object>) fields.get(SonarWorker.CONTEXT_OUTPUTS);
+        Map<String, Object> context = worker.getContextOutputs();
         Map<String, Object> tests = (Map<String, Object>) context.get("tests");
         Map<String, Object> rules = (Map<String, Object>) context.get("rules");
 
